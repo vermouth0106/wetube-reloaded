@@ -1,5 +1,10 @@
 extends base.pug
+include mixins/video
 
 block content 
     h1 home!
-    input(placeholder="Name")
+    
+    each video in videos
+        +video(video)
+    else
+        li Sorry noting found.
