@@ -2,7 +2,7 @@ import Video from "../models/Videos";
 
 export const home = async (req, res) => {
   const videos = await Video.find({}).sort({ createdAt: "desc" });
-  res.render("home", { pageTitle: "Home", videos });
+  return res.render("home", { pageTitle: "Home", videos });
 };
 export const watch = async (req, res) => {
   const { id } = req.params;
