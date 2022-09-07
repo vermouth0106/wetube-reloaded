@@ -40,8 +40,10 @@ block content
                 li.video__comment#videoComment(data-id=comment.id)
                     i.fas.fa-comment
                     span  #{comment.text}
+                    //- 코드 챌린지 요기임니다!!! ♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙
                     if String(comment.owner._id) === String(loggedInUser._id)
                         span.video__comment__delete-btn#deleteBtn ❌
+                    //- 요기까지 !!!! 😘
 block scripts
     script(src="/static/js/videoPlayer.js")
     if loggedIn

@@ -23,14 +23,27 @@ const addComment = (text, id) => {
   videoComments.prepend(newComment);
 };
 
+// 코드 챌린지 요기임니다!!! ♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙
+
+// event -> 버튼 ❌에 대한 정보
 const delComment = async (event) => {
-  const parent = event.target.parentElement;
+  const parent = event.target.parentElement; // ❌ parent Element를 변수 parent에 저장.
+  // 여가서 parent는 watch.pug ----> li.video__comment#videoComment(data-id=comment.id)이다.
+
   const commentId = parent.dataset.id;
+  // li.video__comment#videoComment(요기!!✅data-id=comment.id✅요기!!)
+
+  // fetch(url, options)
+  // 아래 fetch에서 url을 DELETE method 방식으로 호출한다!!!
   await fetch(`/api/comments/${commentId}`, {
     method: "DELETE",
   });
+
+  // parent를 remove!! HTML상에서 삭제하기!
   parent.remove();
 };
+
+// 요기까지 !!!! 😘
 
 const handleSubmit = async (event) => {
   event.preventDefault();
