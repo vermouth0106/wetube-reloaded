@@ -1,7 +1,17 @@
 extends base.pug
 include mixins/video
 
-block content 
+block header 
+    video.bg-video(autoplay muted loop)
+        source(src="/videos/bg-video.mp4")
+    div.header__text-box
+        span.header__text We live in space.
+    form(action="/search" method="GET").search__form
+        input.search__form__input(placeholder="Search by title",name="keyword", type="text")
+        button.search__form__btn
+            i.fas.fa-search
+
+block content
     div.video-grid
         each video in videos
             +video(video)

@@ -100,7 +100,7 @@ export const deleteVideo = async (req, res) => {
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
   }
-  await Video.findByIdAndDelete(id);
+  // await Video.findByIdAndDelete(id);
   return res.redirect("/");
 };
 
@@ -163,7 +163,7 @@ export const removeComment = async (req, res) => {
     params: { id },
   } = req; // commentSection.js ---->  await fetch(`/api/comments/요기!!✅${commentId}✅요기!!`, ...)
 
-  const comment = await Comment.findById(id); // wetube 데이터베이스 comment 안에 req.params.id 값과 같은 id 값이 있는가?!
+  const comment = await Comment.findByIdAndDelete(id); // wetube 데이터베이스 comment 안에 req.params.id 값과 같은 id 값이 있는가?!
 
   // 데이터베이스에서 찾지 못했으면 comment는 null 즉 false이다. 그러므로 not연산(뒤집기 연산) '!' 를 해서 if 조건문이 실행되는 '참(true)'로 바꿔준다.
   if (!comment) {
@@ -178,7 +178,7 @@ export const removeComment = async (req, res) => {
   // 그럼 왜 변수 comment를 썼느냐? Commnet.findById를 했을 때 값이 존재하는지 안 하는지 확인하기 위해서!!
   // 매번 조건문에서 Commnet.findById를 하기엔 시간이 너무 오래 걸린다! 코드 작성이 어렵고 실행 시간도 길어진다!(실행 시간은 데이터베이스 접근 시간 때문이다!)
   // 결국 데이터베이스 comments에서 req.paprams.id와 같은 id의 comment를 찾아 Delete한다!
-  await Comment.findByIdAndDelete(id);
+
   return res.sendStatus(201);
 };
 

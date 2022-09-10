@@ -1,28 +1,35 @@
 .search__form {
-  margin-bottom: 60px;
   display: flex;
   position: relative;
+  top: 60vh;
   align-items: center;
-  input {
+  width: 40vw;
+  overflow: hidden;
+
+  .search__form__input {
     all: unset;
-    padding: 15px 20px;
+    padding: 20px 15px;
     border-radius: 5px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    background-color: black;
+    border: 2px solid rgba($color: $purple, $alpha: 1);
+    background-color: rgba($color: #ffffff, $alpha: 0.5);
     margin-bottom: 5px;
-    font-size: 16px;
-    color: white;
-    width: 90%;
+    font-size: 25px;
+    color: black;
+    width: 100%;
+    height: 2vh;
+
+    &::placeholder {
+      color: black;
+    }
   }
-  button {
+
+  .search__form__btn {
     all: unset;
-  }
-  button {
-    position: absolute;
-    right: 15px;
-    font-size: 18px;
-    background-color: rgba(0, 0, 0, 0);
-    text-align: center;
+    position: relative;
+    font-size: 25px;
+    right: 35px;
+    background-color: rgba($color: white, $alpha: 0);
+    color: $purple;
     cursor: pointer;
   }
 }

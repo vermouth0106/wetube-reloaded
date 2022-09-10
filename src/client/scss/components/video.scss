@@ -1,13 +1,30 @@
 // video mixin
 .video-mixin {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  &:hover {
+    .video-mixin__data {
+      opacity: 1;
+    }
+  }
   .video-mixin__thumb {
-    height: 140px;
+    height: 40vh;
     border-radius: 7px;
     width: 100%;
     background-color: ivory;
   }
   .video-mixin__data {
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    box-sizing: border-box;
     padding: 0px 15px;
+    position: absolute;
+    width: 100%;
+    height: 10vh;
+    left: 0;
+    bottom: -2vh;
+    background-color: rgba($color: #000000, $alpha: 0.5);
     .video-mixin__title {
       font-size: 18px;
       display: block;

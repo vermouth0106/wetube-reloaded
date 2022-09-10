@@ -12,6 +12,11 @@
   .video__owner {
     margin-bottom: 5px;
     font-size: 14px;
+    .video__owner__avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+    }
     a {
       color: cornflowerblue;
       text-decoration: underline;
