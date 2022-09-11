@@ -5,45 +5,59 @@ const commentDeleteBtnAll = document.querySelectorAll(
   ".video__comment__delete-btn"
 );
 
-const addComment = (text, id) => {
+const addComment = (textValue, id, owner, createdAt) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
   newComment.dataset.id = id;
   newComment.className = "video__comment";
-  const icon = document.createElement("i");
-  icon.className = "fas fa-comment";
-  const span = document.createElement("span");
-  span.innerText = ` ${text}`;
-  const span2 = document.createElement("span");
-  span2.innerText = "❌";
-  span2.addEventListener("click", delComment);
-  newComment.appendChild(icon);
-  newComment.appendChild(span);
-  newComment.appendChild(span2);
+  const img = document.createElement("img");
+  img.className = "video__comment__owner-avatar";
+  img.src = "/" + owner.avatarUrl;
+  newComment.appendChild(img);
+  const info = document.createElement("div");
+  info.className = "video__comment__info";
+  const data = document.createElement("div");
+  data.className = "video__comment__data";
+  const ownerInfo = document.createElement("div");
+  ownerInfo.className = "video__comment__owner__info";
+  const ownerName = document.createElement("a");
+  ownerName.href = `/users/${owner._id}`;
+  ownerName.className = "video__comment__owner-name";
+  const ownerNameSpan = document.createElement("span");
+  ownerNameSpan.innerText = `${owner.name}`;
+  ownerName.appendChild(ownerNameSpan);
+  const time = document.createElement("span");
+  time.className = "video__comment__createdAt";
+  time.innerText = `${createdAt.getFullYear()}. ${createdAt.getMonth()}. ${createdAt.getDate()}`;
+  ownerInfo.appendChild(ownerName);
+  ownerInfo.appendChild(time);
+  const text = document.createElement("span");
+  text.className = "video__comment__text";
+  text.innerText = ` ${textValue}`;
+  data.appendChild(ownerInfo);
+  data.appendChild(text);
+  info.appendChild(data);
+  const controllers = document.createElement("div");
+  controllers.className = "video__comment__conrollers";
+  const del = document.createElement("p");
+  del.className = "video__comment__delete-btn";
+  del.innerText = "Del";
+  del.addEventListener("click", delComment);
+  controllers.appendChild(del);
+  info.appendChild(controllers);
   videoComments.prepend(newComment);
+  newComment.appendChild(info);
 };
 
-// 코드 챌린지 요기임니다!!! ♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙
-
-// event -> 버튼 ❌에 대한 정보
 const delComment = async (event) => {
-  const parent = event.target.parentElement; // ❌ parent Element를 변수 parent에 저장.
-  // 여가서 parent는 watch.pug ----> li.video__comment#videoComment(data-id=comment.id)이다.
-
+  const parent = event.target.closest(".video__comment");
   const commentId = parent.dataset.id;
-  // li.video__comment#videoComment(요기!!✅data-id=comment.id✅요기!!)
-
-  // fetch(url, options)
-  // 아래 fetch에서 url을 DELETE method 방식으로 호출한다!!!
+  console.log(commentId);
   await fetch(`/api/comments/${commentId}`, {
     method: "DELETE",
   });
-
-  // parent를 remove!! HTML상에서 삭제하기!
   parent.remove();
 };
-
-// 요기까지 !!!! 😘
 
 const handleSubmit = async (event) => {
   event.preventDefault();
@@ -62,8 +76,9 @@ const handleSubmit = async (event) => {
   });
   if (response.status === 201) {
     textarea.value = "";
-    const { newCommentId } = await response.json();
-    addComment(text, newCommentId);
+    const { newCommentId, owner, createdAt } = await response.json();
+    console.log(owner);
+    addComment(text, newCommentId, owner, new Date(createdAt));
   }
 };
 

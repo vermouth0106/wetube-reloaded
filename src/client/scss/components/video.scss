@@ -25,14 +25,31 @@
     left: 0;
     bottom: -2vh;
     background-color: rgba($color: #000000, $alpha: 0.5);
-    .video-mixin__title {
-      font-size: 18px;
-      display: block;
-      margin-top: 10px;
+    display: flex;
+    padding-top: 1.2vh;
+    .video-mixin__avatar {
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin-right: 10px;
+      }
     }
-    .video-mixin__meta {
-      margin-top: 5px;
-      font-size: 12px;
+    .video-mixin__info {
+      padding-top: 0.4vh;
+      width: 100%;
+
+      .video-mixin__title {
+        font-size: 18px;
+        display: block;
+      }
+      .video-mixin__meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+        font-size: 12px;
+        display: flex;
+      }
     }
   }
 }

@@ -2,39 +2,181 @@
   margin-top: 20px;
   display: flex;
   flex-direction: column;
-  .video__title {
-    font-size: 26px;
-    margin-bottom: 5px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #aaaaaa;
+  .video__hashtags {
+    font-size: 14px;
+    color: #3da6ff;
   }
+  .video__title {
+    font-size: 22px;
+    margin: 5px 0;
+  }
+  .video__info {
+    padding-bottom: 20px;
+    border-bottom: 1px solid #aaaaaa;
+  }
+  .video__views,
   .video__createdAt {
-    font-size: 12px;
+    font-size: 14px;
+    color: #aaaaaa;
   }
   .video__owner {
+    padding-top: 20px;
     margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     font-size: 14px;
+    & > div {
+      display: flex;
+    }
+    & > div:last-child {
+      flex-direction: column;
+      text-align: center;
+      a {
+        background-color: $purple;
+        padding: 5px;
+        border-radius: 8px;
+      }
+    }
     .video__owner__avatar {
+      margin-right: 10px;
       width: 60px;
       height: 60px;
       border-radius: 50%;
     }
-    a {
-      color: cornflowerblue;
-      text-decoration: underline;
+    .video__owner__link {
+      display: flex;
+      flex-direction: column;
+      a {
+        all: unset;
+        font-size: 30px;
+        cursor: pointer;
+      }
+      span {
+        margin-top: 5px;
+        color: #aaaaaa;
+      }
+    }
+  }
+  .video__description {
+    margin: 0 70px;
+    margin-top: 20px;
+    line-height: 20px;
+  }
+}
+.video__add-comments {
+  margin-top: 40px;
+  display: flex;
+  .video__add-comments__avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  .video__comment-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    textarea {
+      width: 75vw;
+      height: 3vh;
+      font-size: 2vh;
+      background-color: rgba($color: #000000, $alpha: 0);
+      color: white;
+      border: none;
+      border-bottom: 1px solid #aaaaaa;
+      margin-bottom: 10px;
+
+      &::placeholder {
+        font-size: 2vh;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+    button {
+      all: unset;
+      text-align: center;
+      width: 4vw;
+      height: 6vh;
+      background-color: #3da6ff;
+      align-self: flex-end;
+      border-radius: 8px;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 }
+
 .video__comments {
   display: flex;
   flex-direction: column;
-  max-width: 320px;
+  max-width: 100vw;
   width: 100%;
   margin: 0 auto;
   margin-top: 20px;
   .video__comment {
+    // margin-bottom: 40px;
     padding: 10px;
     border-radius: 9999px;
-    background-color: white;
-    color: black;
+    background-color: rgba($color: #000000, $alpha: 0);
+    color: white;
     margin-bottom: 10px;
+    display: flex;
+
+    .video__comment__owner-avatar {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .video__comment__info {
+      margin: 0 auto;
+      width: 73vw;
+      display: flex;
+      justify-content: space-between;
+
+      .video__comment__conrollers {
+        width: 40px;
+        height: 20px;
+        .video__comment__delete-btn {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+          background-color: red;
+          border-radius: 5px;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      .video__comment__data {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        .video__comment__owner__info {
+          .video__comment__owner-name {
+            margin-right: 15px;
+            font-weight: 700;
+          }
+          .video__comment__createdAt {
+            opacity: 0.8;
+            font-size: 14px;
+          }
+        }
+        .video__comment__text {
+          margin-bottom: 5px;
+          font-size: 17px;
+        }
+      }
+    }
   }
 }

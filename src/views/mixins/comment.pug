@@ -1,0 +1,13 @@
+mixin comment(comment)
+    li.video__comment#videoComment(data-id=comment.id)
+        img.video__comment__owner-avatar(src="/" + comment.owner.avatarUrl)
+        div.video__comment__info
+            div.video__comment__data
+                div.video__comment__owner__info
+                    a.video__comment__owner-name(href=`/users/${comment.owner._id}`)
+                        span #{comment.owner.name}
+                    span.video__comment__createdAt #{comment.createdAt.getFullYear()}. #{comment.createdAt.getMonth()}. #{comment.createdAt.getDate()}
+                span.video__comment__text  #{comment.text}
+            if String(comment.owner._id) === String(loggedInUser._id)
+                div.video__comment__conrollers
+                    p.video__comment__delete-btn Del

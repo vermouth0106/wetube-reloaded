@@ -12,10 +12,11 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params;
   const video = await Video.findById(id).populate("owner").populate("comments");
+  const comments = await Comment.find({ video: id }).populate("owner"); // 핵심!!(Back)
   if (!video) {
     return res.render("404", { pageTitle: "Video not found." });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("watch", { pageTitle: video.title, video, comments });
 };
 
 export const getEdit = async (req, res) => {
@@ -100,7 +101,7 @@ export const deleteVideo = async (req, res) => {
   if (String(video.owner) !== String(_id)) {
     return res.status(403).redirect("/");
   }
-  // await Video.findByIdAndDelete(id);
+  await Video.findByIdAndDelete(id);
   return res.redirect("/");
 };
 
@@ -130,7 +131,9 @@ export const registerView = async (req, res) => {
 
 export const createComment = async (req, res) => {
   const {
-    session: { user },
+    session: {
+      user: { _id },
+    },
     body: { text },
     params: { id },
   } = req;
@@ -140,46 +143,38 @@ export const createComment = async (req, res) => {
   }
   const comment = await Comment.create({
     text,
-    owner: user._id,
+    owner: _id,
     video: id,
   });
+  const owner = await User.findById(comment.owner); // 핵심(Front)
+
+  owner.comments.push(comment._id);
+  owner.save();
   video.comments.push(comment._id);
   video.save();
-  return res.status(201).json({ newCommentId: comment._id });
+  return res
+    .status(201)
+    .json({ newCommentId: comment._id, owner, createdAt: comment.createdAt }); // 핵심(Front)
 };
 
 export const textHanlder = (req, res) => {
   req.send("hello");
 };
 
-// 코드 챌린지 요기임니다!!! ♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙♥️💙
-
 export const removeComment = async (req, res) => {
   const {
     user: { _id },
-  } = req.session; // 현재 로그인한 유저의 정보(세션)
-
+  } = req.session;
   const {
     params: { id },
-  } = req; // commentSection.js ---->  await fetch(`/api/comments/요기!!✅${commentId}✅요기!!`, ...)
+  } = req;
 
-  const comment = await Comment.findByIdAndDelete(id); // wetube 데이터베이스 comment 안에 req.params.id 값과 같은 id 값이 있는가?!
-
-  // 데이터베이스에서 찾지 못했으면 comment는 null 즉 false이다. 그러므로 not연산(뒤집기 연산) '!' 를 해서 if 조건문이 실행되는 '참(true)'로 바꿔준다.
+  const comment = await Comment.findByIdAndDelete(id);
   if (!comment) {
     return res.sendStatus(404);
   }
-
-  // commnet.owner(댓글 작성자)와 req.session._id(현재 접속자)가 다르면 에러 코드를 보낸다.
   if (String(comment.owner) !== String(_id)) {
     return res.sendStatus(403);
   }
-
-  // 그럼 왜 변수 comment를 썼느냐? Commnet.findById를 했을 때 값이 존재하는지 안 하는지 확인하기 위해서!!
-  // 매번 조건문에서 Commnet.findById를 하기엔 시간이 너무 오래 걸린다! 코드 작성이 어렵고 실행 시간도 길어진다!(실행 시간은 데이터베이스 접근 시간 때문이다!)
-  // 결국 데이터베이스 comments에서 req.paprams.id와 같은 id의 comment를 찾아 Delete한다!
-
   return res.sendStatus(201);
 };
-
-// 요기까지 !!!! 😘
