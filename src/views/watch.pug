@@ -32,7 +32,10 @@ block content
                 small.video__createdAt=new Date(video.createdAt).toLocaleDateString("ko-kr", {weekday: 'long', year: 'numeric', month: 'long', day: 'numeric'})
             small.video__owner 
                 div 
-                    img.video__owner__avatar(src="/" + video.owner.avatarUrl)
+                    if `${(video.owner.avatarUrl).substring(0,4)}` === "http"
+                        img.video__owner__avatar(src=video.owner.avatarUrl)
+                    else 
+                        img.video__owner__avatar(src="/" + video.owner.avatarUrl)
                     div.video__owner__link
                         a(href=`/users/${video.owner._id}`)=video.owner.name
                         span 구독자 0명
@@ -45,7 +48,10 @@ block content
                 span=video.description
         if loggedIn
             div.video__add-comments
-                img.video__add-comments__avatar(src="/" + loggedInUser.avatarUrl)
+                if loggedInUser.socialOnly
+                    img.video__add-comments__avatar(src=loggedInUser.avatarUrl)
+                else 
+                    img.video__add-comments__avatar(src="/" + loggedInUser.avatarUrl)
                 form.video__comment-form#commentForm
                     textarea(cols="30", rows="10", placeholder="댓글 추가...")
                     button 댓글

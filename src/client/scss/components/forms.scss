@@ -42,7 +42,8 @@ input[type="submit"] {
   border-radius: 5px;
   padding: 12px 20px;
   background-color: white !important;
-  color: rgba($color: black, $alpha: 1) !important;
+  color: rgba($color: $purple, $alpha: 1) !important;
+  font-weight: 600;
   text-align: center !important;
   cursor: pointer;
   display: block;
@@ -56,6 +57,7 @@ input[type="submit"] {
   }
 }
 
+.upload__container,
 .login-form__container,
 .join-form__container,
 .edit-video__container,
@@ -68,8 +70,10 @@ input[type="submit"] {
     align-items: center;
 
     label {
-      color: black;
+      color: $purple;
       align-self: flex-start;
+      font-weight: 700;
+      margin: 10px 0px;
     }
 
     .form__submit {

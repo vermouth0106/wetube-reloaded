@@ -12,7 +12,11 @@ const addComment = (textValue, id, owner, createdAt) => {
   newComment.className = "video__comment";
   const img = document.createElement("img");
   img.className = "video__comment__owner-avatar";
-  img.src = "/" + owner.avatarUrl;
+  if (owner.avatarUrl.substring(0, 4) === "http") {
+    img.src = owner.avatarUrl;
+  } else {
+    img.src = "/" + owner.avatarUrl;
+  }
   newComment.appendChild(img);
   const info = document.createElement("div");
   info.className = "video__comment__info";

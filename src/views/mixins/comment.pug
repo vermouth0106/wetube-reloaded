@@ -1,6 +1,9 @@
 mixin comment(comment)
     li.video__comment#videoComment(data-id=comment.id)
-        img.video__comment__owner-avatar(src="/" + comment.owner.avatarUrl)
+        if `${(comment.owner.avatarUrl).substring(0,4)}` === "http"
+            img.video__comment__owner-avatar(src=comment.owner.avatarUrl)
+        else
+            img.video__comment__owner-avatar(src="/" + comment.owner.avatarUrl)
         div.video__comment__info
             div.video__comment__data
                 div.video__comment__owner__info
