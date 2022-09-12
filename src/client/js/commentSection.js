@@ -32,7 +32,9 @@ const addComment = (textValue, id, owner, createdAt) => {
   ownerName.appendChild(ownerNameSpan);
   const time = document.createElement("span");
   time.className = "video__comment__createdAt";
-  time.innerText = `${createdAt.getFullYear()}. ${createdAt.getMonth()}. ${createdAt.getDate()}`;
+  time.innerText = `${createdAt.getFullYear()}. ${
+    createdAt.getMonth() + 1
+  }. ${createdAt.getDate()}`;
   ownerInfo.appendChild(ownerName);
   ownerInfo.appendChild(time);
   const text = document.createElement("span");
@@ -56,7 +58,6 @@ const addComment = (textValue, id, owner, createdAt) => {
 const delComment = async (event) => {
   const parent = event.target.closest(".video__comment");
   const commentId = parent.dataset.id;
-  console.log(commentId);
   await fetch(`/api/comments/${commentId}`, {
     method: "DELETE",
   });
@@ -81,7 +82,6 @@ const handleSubmit = async (event) => {
   if (response.status === 201) {
     textarea.value = "";
     const { newCommentId, owner, createdAt } = await response.json();
-    console.log(owner);
     addComment(text, newCommentId, owner, new Date(createdAt));
   }
 };
