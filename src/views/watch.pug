@@ -48,10 +48,7 @@ block content
                 span=video.description
         if loggedIn
             div.video__add-comments
-                if loggedInUser.socialOnly
-                    img.video__add-comments__avatar(src=loggedInUser.avatarUrl)
-                else 
-                    img.video__add-comments__avatar(src="/" + loggedInUser.avatarUrl)
+                img.video__add-comments__avatar(src=loggedInUser.avatarUrl)
                 form.video__comment-form#commentForm
                     textarea(cols="30", rows="10", placeholder="댓글 추가...")
                     button 댓글
