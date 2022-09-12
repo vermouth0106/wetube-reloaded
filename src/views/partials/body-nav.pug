@@ -15,7 +15,7 @@ div.header__menu
                             if loggedInUser.avatarUrl === ""
                                 span 😀
                             else
-                                if loggedInUser.socialOnly
+                                if loggedInUser.socialOnly.includes("github")
                                     img.header__avatar(src=loggedInUser.avatarUrl)
                                 else 
                                     img.header__avatar(src="/" + loggedInUser.avatarUrl)
